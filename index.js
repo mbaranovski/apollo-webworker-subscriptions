@@ -4,14 +4,16 @@ const pubsub = new PubSub();
 
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
-  type Query {
-    hello: String
-  }
+    type Query {
+        hello: String
+    }
 
-  type Subscription {
-    helloSub: String!
-  }
+    type Subscription {
+        helloSub: String!
+    }
 `;
+
+let publisher = null;
 
 // Provide resolver functions for your schema fields
 const resolvers = {
@@ -21,9 +23,15 @@ const resolvers = {
   Subscription: {
     helloSub: {
       subscribe: () => {
-        let i = setInterval(() => {
-          pubsub.publish("testSub", { helloSub: `elo ${i++}` });
-        }, 1000);
+
+
+        if(!publisher) {
+          let i = 0;
+          publisher = setInterval(() => {
+            pubsub.publish("testSub", { helloSub: `elo ${i++}` });
+          }, 1000);
+        }
+
 
         return pubsub.asyncIterator(["testSub"]);
       }
