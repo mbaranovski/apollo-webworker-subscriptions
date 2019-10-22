@@ -1,7 +1,7 @@
 const { ApolloServer, gql, PubSub } = require("apollo-server");
 
 const pubsub = new PubSub();
-console.log("asd");
+
 // Construct a schema, using GraphQL schema language
 const typeDefs = gql`
   type Query {
