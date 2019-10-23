@@ -13,6 +13,9 @@ export const SubComponent: React.FC = () => {
   const {data} = useSubscription(HELLO_SUB);
 
   return(
+    <>
+      <div className="bouncy-ball"></div>
     <div>SubComponent: {data && data.helloSub}</div>
+      </>
   )
 }
