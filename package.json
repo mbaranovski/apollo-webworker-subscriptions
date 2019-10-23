@@ -2,9 +2,9 @@
   "name": "apollo-server",
   "description": "",
   "dependencies": {
-    "apollo-server": "https://51874-56760633-gh.circle-artifacts.com/0/packed/apollo-server/apollo-server-2.9.4.tgz",
     "@apollo/federation": "https://51874-56760633-gh.circle-artifacts.com/0/packed/%40apollo/federation/federation-0.10.0.tgz",
     "@apollo/gateway": "https://51874-56760633-gh.circle-artifacts.com/0/packed/%40apollo/gateway/gateway-0.10.5.tgz",
+    "apollo-server": "https://51874-56760633-gh.circle-artifacts.com/0/packed/apollo-server/apollo-server-2.9.4.tgz",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1"
   },

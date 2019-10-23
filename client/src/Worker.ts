@@ -1,6 +1,8 @@
 import { SubscriptionClient } from "subscriptions-transport-ws";
 import { FetchResult, Observable, Operation } from "apollo-link";
-
+declare let window: any;
+const _global = typeof global !== 'undefined' ? global : (typeof window !== 'undefined' ? window : {});
+const NativeWebSocket = _global.WebSocket || _global.MozWebSocket;
  enum EVENT_TYPES {
   INIT,
   REQUEST
@@ -42,6 +44,8 @@ class WebWorkerHandler {
         }
       }
     }
+
+    //const d = new NativeWebSocket()
   }
 
   onInit() {

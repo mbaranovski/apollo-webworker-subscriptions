@@ -1,7 +1,7 @@
 /* eslint-disable */
-import { ApolloLink, FetchResult, Observable, Operation } from "apollo-link";
-
-import { ClientOptions, Observer, SubscriptionClient } from "subscriptions-transport-ws";
+import { ApolloLink, ExecutionResult, FetchResult, Observable, Operation } from "apollo-link";
+import $$observable from 'symbol-observable';
+import { ClientOptions, Observer, SubscriptionClient } from "../node_modules/subscriptions-transport-ws";
 import nanoid from 'nanoid';
 //@ts-ignore
 import Worker from "worker-loader!./Worker";
@@ -60,14 +60,13 @@ export class WebWorkerLinkWS extends ApolloLink {
         paramsOrClient.webSocketImpl,
       );
     }
-
-    this.worker = new Worker();
-    this.worker.onmessage = this.onMessage;
-
-    const initMsg: IWWData = {
-      type: EVENT_TYPES.INIT
-    }
-    this.worker.postMessage(initMsg)
+    // this.worker = new Worker();
+    // this.worker.onmessage = this.onMessage;
+    //
+    // const initMsg: IWWData = {
+    //   type: EVENT_TYPES.INIT
+    // }
+  //  this.worker.postMessage(initMsg)
   }
 
   private onMessage(msg: any) {
@@ -75,38 +74,45 @@ export class WebWorkerLinkWS extends ApolloLink {
   }
 
   public request(operation: Operation): Observable<FetchResult> | null {
-    const reqId = nanoid();
-
-   let observerInst: any = null;
-
-    const requestObservable = new Observable<FetchResult>((observer) => {
-      observerInst = observer;
-     // observer.next({});
-    //  observer.complete();
-    }).subscribe(next => {
-      console.log("MICHAL: 'from next!', next", 'from next!', next);
-    });
-
-    this.subscriptionMap.set(reqId, observerInst);
-
-    setInterval(() => {
-      const ob = this.subscriptionMap.get(reqId);
-      if(ob)
-      ob.next!("elo elo" as any);
-    }, 1000)
-
-
-    this.worker.postMessage({type: EVENT_TYPES.REQUEST, value: operation});
-
     return this.subscriptionClient.request(operation) as Observable<
       FetchResult
       >;
   }
+
+  // public request(operation: Operation): Observable<FetchResult> | null {
+  //   const reqId = nanoid();
+  //
+  //  let observerInst: any = null;
+  //
+  //   const requestObservable = new Observable<FetchResult>((observer) => {
+  //     observerInst = observer;
+  //    // observer.next({});
+  //   //  observer.complete();
+  //   }).subscribe(next => {
+  //     console.log("MICHAL: 'from next!', next", 'from next!', next);
+  //   });
+  //
+  //
+  //   this.subscriptionMap.set(reqId, observerInst);
+  //
+  //   setInterval(() => {
+  //     const ob = this.subscriptionMap.get(reqId);
+  //     if(ob)
+  //     ob.next!("elo elo" as any);
+  //   }, 1000)
+  //
+  //
+  //   this.worker.postMessage({type: EVENT_TYPES.REQUEST, value: operation});
+  //
+  //   return this.subscriptionClient.request(operation) as Observable<
+  //     FetchResult
+  //     >;
+  // }
+
 }
-
-
+console.log("MICHAL: SubscriptionClient", SubscriptionClient);
 const GRAPHQL_ENDPOINT = "ws://localhost:4000/graphql";
-
+console.log("MICHAL: 'sdfsdf'", 'sdfsdf');
 const client = new SubscriptionClient(GRAPHQL_ENDPOINT, {
   reconnect: true
 });
