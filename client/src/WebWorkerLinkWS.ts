@@ -1,8 +1,7 @@
 /* eslint-disable */
-import { ApolloLink, ExecutionResult, FetchResult, Observable, Operation } from "apollo-link";
-import $$observable from 'symbol-observable';
-import { ClientOptions, Observer, SubscriptionClient } from "../node_modules/subscriptions-transport-ws";
-import nanoid from 'nanoid';
+import { ApolloLink, FetchResult, Observable, Operation } from "apollo-link";
+import { ClientOptions, Observer, SubscriptionClient } from "subscriptions-transport-ws";
+
 //@ts-ignore
 import Worker from "worker-loader!./Worker";
 
