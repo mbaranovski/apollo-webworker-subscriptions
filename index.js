@@ -28,9 +28,9 @@ const resolvers = {
         if(!publisher) {
           let i = 0;
           publisher = setInterval(() => {
-            if(i === 2)
-            pubsub.publish("testSub", { helloSub: null });
-            else
+          //  if(i === 2)
+           // pubsub.publish("testSub", { helloSub: null });
+          //  else
             pubsub.publish("testSub", { helloSub: `elo ${i++}` });
           }, 1000);
         }
